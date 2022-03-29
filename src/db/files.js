@@ -10,6 +10,9 @@ const file = new mongoose.Schema({
     file_name: {
         type: String,
     },
+    file_type: {
+        type: String,
+    },
     time_created: {
         type: Date,
         default: Date.now

@@ -61,30 +61,38 @@ app.post('/api/files/new', auth, async(req, res) => {
     const file_cid = req.body.file_cid;
     const owner = req.body.owner;
     const file_name = req.body.file_name;
+    const file_type = req.body.file_type;
     const f = {
         file_address: file_address,
         file_cid: file_cid,
         owner: owner,
         file_name: file_name,
+        file_type: file_type,
         versions: [file_cid]
     }
     let fileModel = new Files(f);
-    let model = await fileModel.save();
-    let setFile = {};
-    // let new_file_name = file_name.replace('.', '_dot_');
-    let file_addr = 'structure.' + file_address + '/images' + '.' + file_cid;
-    let file_path = file_addr.replace('/', '.'); // structure.roton91.images.cid
-    setFile[file_path] = { name: file_name, '__type__': 'image', cid: file_cid };
-    console.log(`file_path: ${file_path}`);
-    // let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $push: { structure: setFile } });
-    let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $set: setFile });
-    // let folders = file_path.split('.');
-    // for (let i = 1; i < folders.length - 1; i++) {
-    //     const folder = folders[i];
+    let model;
+    try {
+        model = await fileModel.save();
+        console.log('Model saved: ' + model);
+        let setFile = {};
+        // let new_file_name = file_name.replace('.', '_dot_');
+        let file_addr = 'structure.' + file_address + '/'+ file_type + '.' + file_cid;
+        let file_path = file_addr.replace('/', '.'); // structure.roton91.images.cid
+        setFile[file_path] = { name: file_name, '__type__': file_type, cid: file_cid };
+        console.log(`file_path: ${file_path}`);
+        // let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $push: { structure: setFile } });
+        let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $set: setFile });
+        console.log(userModel);
+        // let folders = file_path.split('.');
+        // for (let i = 1; i < folders.length - 1; i++) {
+        //     const folder = folders[i];
 
-    // }
-    console.log(userModel);
-    return model;
+        // }
+        return model;
+    } catch (error) {
+        return 'Duplicate file uploaded! Upload failed!';
+    }
 });
 
 app.get('/api/files/all', auth, async(req, res) => {

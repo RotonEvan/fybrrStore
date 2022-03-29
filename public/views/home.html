@@ -17,10 +17,11 @@
 
     <!-- Upload  -->
     <form id="file-upload-form" class="uploader">
-        <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+        <input id="file-upload" type="file" name="fileUpload" />
 
         <label for="file-upload" id="file-drag">
-            <img id="file-image" src="#" alt="Preview" class="hidden">
+            <!-- <img id="file-image" src="#" alt="Preview" class="hidden"> -->
+            <span id="file-image" class="hidden" alt="Preview"><i class="fa fa-file fa-6" style="font-size: 80px; margin: 10px;" aria-hidden="true"></i></span>
             <div id="start">
             <i class="fa fa-download" aria-hidden="true"></i>
             <div>Select a file or drag here</div>

@@ -391,6 +391,42 @@ body {
     background: #d9d9d9;
 }
 
+/* floating button starts */
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:60px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.float:hover{
+    /* transform: scale(1.5); */
+    box-shadow: 4px 4px 6px #999;
+    width:140px;
+}
+.my-float{
+	margin-top:22px;
+}
+
+.hide {
+    display: none;
+  }
+
+.float:hover .hide {
+    display: inline;
+    font-weight: bold;
+}
+/* floating button ends */
 
 /*-------Search----------------|END-----*/
 

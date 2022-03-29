@@ -32,12 +32,18 @@ p {
     color: #5f6982;
 }
 
+.input-hide {
+    display: none;
+}
+/* 
 .uploader {
     display: block;
     clear: both;
     margin: 0 auto;
     width: 100%;
-    max-width: 600px;
+    max-width: 1200px;
+    bottom: 50px;
+    position: absolute;
 }
 
 .uploader label {
@@ -129,7 +135,7 @@ p {
     clear: both;
     margin: 0 auto;
     width: 100%;
-    max-width: 180px;
+    max-width: 500px;
     height: 8px;
     border: 0;
     border-radius: 4px;
@@ -182,4 +188,4 @@ p {
     background: #454cad;
     border-color: #454cad;
     cursor: pointer;
-}
+} */
