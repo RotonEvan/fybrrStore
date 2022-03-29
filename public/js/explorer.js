@@ -181,6 +181,9 @@ function initUI() {
         $(this).siblings('li').hide();
         $(this).addClass('file-sub-active').children('ul').show();
     });
+    $(document).on('dblclick', '[data-open-file = "preview"]', function(e) {
+        window.open("http://ipfs.io/ipfs/" + $(this)[0].dataset.fileId);
+    });
     $(document).on('dblclick', '.big-file-manager ul li.has-files-of-folder', function(e) {
         $('.has-files-of-folder').removeClass('show-up').addClass('hide-up');
         $(this).addClass('show-up').removeClass('hide-up');
