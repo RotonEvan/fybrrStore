@@ -27,8 +27,8 @@ const user = new mongoose.Schema({
         trim: true,
         maxlength: 100
     },
-    urls: {
-        type: Array
+    structure: {
+        type: Object,
     },
     token: {
         type: String
