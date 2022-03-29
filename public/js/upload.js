@@ -40,20 +40,21 @@ function ekUpload() {
         // Process all File objects
         for (var i = 0, f; f = files[i]; i++) {
             parseFile(f);
+            let ftype = getFileType(f);
             uploadFile(f).then((data) => {
                 console.log(data);
-                var pBar = document.getElementById('file-progress');
-                pBar.value = 100;
+                // var pBar = document.getElementById('file-progress');
+                // pBar.value = 100;
                 let cid = data.cid.string;
                 let fname = data.path;
                 serverConn.send(JSON.stringify({ context: 'PIN', id: _id, cid: cid }));
-                let formData = { 'file_address': username, 'file_cid': cid, 'owner': username, 'file_name': fname }
+                let formData = { 'file_address': username, 'file_cid': cid, 'owner': username, 'file_name': fname, 'file_type': ftype }
                 axios({
                     method: 'post',
-                    url: "http://" + location.host + "/" + "api/files/new",
+                    url: "http://" + location.host + "/api/files/new",
                     data: formData
                 }).then((res) => {
-                    console.log(res);
+                    console.log('Upload api called: '+res);
                 })
             });
         }
@@ -66,32 +67,49 @@ function ekUpload() {
         m.innerHTML = msg;
     }
 
+    function getFileType(file) {
+        // var extension = (/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name) : undefined;
+        var isImage = (/\.(?=gif|jpg|png|jpeg)/gi).test(file.name);
+        if(isImage)
+            return 'images';
+        var isText = (/\.(?=txt)/gi).test(file.name);
+        if(isText)
+            return 'texts';
+        var isCode = (/\.(?=py|html|css|js|c|cpp|php)/gi).test(file.name);
+        if(isCode)
+            return 'codes';
+        var isDoc = (/\.(?=pdf|doc|docx)/gi).test(file.name);
+        if(isDoc)
+            return 'documents';
+        // var isOther = !(isImage | isText | isDoc);
+        return 'others';
+    }
+
     function parseFile(file) {
 
         console.log(file.name);
         output(
-            '<strong>' + encodeURI(file.name) + '</strong>'
+            '<strong>' + encodeURI(file.name) + 'Uploaded! </strong>'
         );
 
         // var fileType = file.type;
         // console.log(fileType);
         var imageName = file.name;
-
-        var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
-        if (isGood) {
-            document.getElementById('start').classList.add("hidden");
-            document.getElementById('response').classList.remove("hidden");
-            document.getElementById('notimage').classList.add("hidden");
+        // var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
+        // if (isGood) {
+            // document.getElementById('start').classList.add("hidden");
+            // document.getElementById('response').classList.remove("hidden");
+            // document.getElementById('notimage').classList.add("hidden");
             // Thumbnail Preview
-            document.getElementById('file-image').classList.remove("hidden");
-            document.getElementById('file-image').src = URL.createObjectURL(file);
-        } else {
-            document.getElementById('file-image').classList.add("hidden");
-            document.getElementById('notimage').classList.remove("hidden");
-            document.getElementById('start').classList.remove("hidden");
-            document.getElementById('response').classList.add("hidden");
-            document.getElementById("file-upload-form").reset();
-        }
+            // document.getElementById('file-image').classList.remove("hidden");
+            // document.getElementById('file-image').src = URL.createObjectURL(file);
+        // } else {
+        //     document.getElementById('file-image').classList.add("hidden");
+        //     document.getElementById('notimage').classList.remove("hidden");
+        //     document.getElementById('start').classList.remove("hidden");
+        //     document.getElementById('response').classList.add("hidden");
+        //     document.getElementById("file-upload-form").reset();
+        // }
     }
 
     function setProgressMaxValue(e) {

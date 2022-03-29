@@ -3,13 +3,13 @@ function filesAndFolderIcons(newData) {
         var getType = $(a).attr('data-file-icon');
         if (getType == "folder") {
             $(a).children('b').prepend('<i class="fas fa-folder"></i>');
-        } else if (getType == "html" || getType == "css" || getType == "js" || getType == "php") {
+        } else if (getType == "codes" || getType == "texts" || getType == "documents") {
             $(a).children('b').prepend('<i class="fas fa-file"></i>');
         } else if (getType == "layout") {
             $(a).children('b').prepend('<i class="fas fa-th-large"></i>');
-        } else if (getType == "image") {
+        } else if (getType == "image" || getType == "images") {
             $(a).children('b').prepend('<i class="far fa-images"></i>');
-        } else if (getType == "video") {
+        } else if (getType == "video" || getType == "videos") {
             $(a).children('b').prepend('<i class="fas fa-video"></i>');
         }
     }
