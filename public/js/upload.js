@@ -63,7 +63,7 @@ function ekUpload() {
     }
 
     $(document).on('click', '[id="new-folder-trigger"]', function() {
-        var fold_name = 'New-Folder';
+        var fold_name = 'new-folder';
         let rel_path = $('.show-up[data-file-icon]').attr('data-path');
         console.log(rel_path +'/'+ fold_name);
         createFolder(rel_path, fold_name).then((data)=>{
