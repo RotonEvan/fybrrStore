@@ -62,6 +62,36 @@ function ekUpload() {
         }
     }
 
+    $(document).on('click', '[id="new-folder-trigger"]', function() {
+        var fold_name = 'New-Folder';
+        let rel_path = $('.show-up[data-file-icon]').attr('data-path');
+        console.log(rel_path +'/'+ fold_name);
+        createFolder(rel_path, fold_name).then((data)=>{
+            if(data) {
+                $('.no-item-inside-folder.active-folder-wrapper').empty().removeClass('no-item-inside-folder').addClass('active-folder-wrapper');
+                $('.active-folder-wrapper').append('<li data-file-icon="folder" data-new="new" data-cloud="load"><b>'+ fold_name +'</b></li>');
+                filesAndFolderIcons('newData');
+                allStructure();
+                createFileAndFolderDataBase();
+                $('[data-new="new"]').removeAttr('data-new');
+                removeUnwanted();
+            }
+        });
+    });
+
+    async function createFolder(folderPath, folderName) {
+        let formData = { 'folder_address': folderPath, 'owner': username, 'folder_name': folderName }
+        console.log('createFolder called'+ formData);
+        axios({
+            method: 'post',
+            url: "http://" + location.host + "/api/folders/new",
+            data: formData
+        }).then((res) => {
+            console.log('folder created: '+res);
+        })
+        return true;
+    }
+
     // Output
     function output(msg) {
         // Response
