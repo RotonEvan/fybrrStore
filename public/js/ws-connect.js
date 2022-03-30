@@ -81,6 +81,7 @@ async function pinCID(cid) {
 }
 
 function parseFolder(folder, foldername) {
+    // console.log(folder, foldername);
     var li = document.createElement('li');
     li.dataset.fileIcon = 'folder';
     let fldrname = document.createElement('b');
@@ -88,6 +89,7 @@ function parseFolder(folder, foldername) {
     li.appendChild(fldrname);
     var ul = document.createElement("ul");
     for (const [key, value] of Object.entries(folder)) {
+        // console.log(key, value);
         let child;
         if (folder[key].__type__) {
             // file
@@ -100,6 +102,7 @@ function parseFolder(folder, foldername) {
             child.dataset.openFile = "preview";
         } else {
             // folder
+            // console.log(folder[key]);
             child = parseFolder(folder[key], key);
         }
         ul.appendChild(child);

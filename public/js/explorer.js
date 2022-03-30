@@ -1,3 +1,4 @@
+
 function filesAndFolderIcons(newData) {
     function letGoSmallA(a) {
         var getType = $(a).attr('data-file-icon');
@@ -247,7 +248,7 @@ function initUI() {
         var topPos = e.pageY;
         var leftPos = e.pageX;
         $('.append-option-box').remove();
-        $(this).append('<div class="append-option-box" style="top:' + topPos + 'px;left:' + leftPos + 'px;"><div class="inner-contenxt-box"> <div data-function="view"> <span>View</span> <div class="main-sub-menu"> <div data-size="small">Small</div> <div data-size="medium">Medium</div> <div data-size="large">Large</div> </div> </div> <div data-function="short"> <span>Short</span> <div class="main-sub-menu"> <div>Name</div> <div>Date Modified</div> <div>Size</div> <div>Type</div> </div> </div> <div data-function="new"> <span>New Files</span> <div class="main-sub-menu"> <div>HTML File</div> <div>CSS File</div> <div>JS File</div> <div>PHP File</div> <div>Custom File</div> </div> </div> <div data-function="new-folder">New Folder</div> <div class="" data-function="paste-data">Paste</div> <div data-function="folder-properties">Properties</div> </div> </div>');
+        $(this).append('<div class="append-option-box" style="top:' + topPos + 'px;left:' + leftPos + 'px;"><div class="inner-contenxt-box"> <div data-function="view"> <span>View</span> <div class="main-sub-menu"> <div data-size="small">Small</div> <div data-size="medium">Medium</div> <div data-size="large">Large</div> </div> </div> <div data-function="short"> <span>Short</span> <div class="main-sub-menu"> <div>Name</div> <div>Date Modified</div> <div>Size</div> <div>Type</div> </div> </div> <div data-function="new"> <span>New Files</span> <div class="main-sub-menu"> <div>HTML File</div> <div>CSS File</div> <div>JS File</div> <div>PHP File</div> <div>Custom File</div> </div> </div> <div data-function="new-folder" id="new-folder-trigger">New Folder</div> <div class="" data-function="paste-data">Paste</div> <div data-function="folder-properties">Properties</div> </div> </div>');
         $('.append-option-box>div>div:has(div)').addClass('has-sub-context');
         $('.has-sub-context').append('<i class="fas fa-chevron-right"></i>');
         return false;
@@ -383,15 +384,21 @@ function initUI() {
     /*-------Folder And Files Size-----------------------|END-------*/
     /*----------------New Folder---------------------|START------------*/
 
-    $(document).on('click', '[data-function="new-folder"]', function() {
-        $('.no-item-inside-folder.active-folder-wrapper').empty().removeClass('no-item-inside-folder').addClass('active-folder-wrapper');
-        $('.active-folder-wrapper').append('<li data-file-icon="folder" data-new="new" data-cloud="load"><b>New Folder</b></li>');
-        filesAndFolderIcons('newData');
-        allStructure();
-        createFileAndFolderDataBase();
-        $('[data-new="new"]').removeAttr('data-new');
-        removeUnwanted();
-    });
+    // $(document).on('click', '[data-function="new-folder"]', function() {
+    //     var fold_name = 'New Folder';
+    //     var rel_path = $('.show-up[data-file-icon]').attr('data-path');
+    //     createFolder(rel_path, fold_name).then((data)=>{
+    //         if(data) {
+    //             $('.no-item-inside-folder.active-folder-wrapper').empty().removeClass('no-item-inside-folder').addClass('active-folder-wrapper');
+    //             $('.active-folder-wrapper').append('<li data-file-icon="folder" data-new="new" data-cloud="load"><b>'+ fold_name +'</b></li>');
+    //             filesAndFolderIcons('newData');
+    //             allStructure();
+    //             createFileAndFolderDataBase();
+    //             $('[data-new="new"]').removeAttr('data-new');
+    //             removeUnwanted();
+    //         }
+    //     });
+    // });
     $('.address-search-input').focus(function() {
         $('.address-short-btn').hide();
         $(this).select();

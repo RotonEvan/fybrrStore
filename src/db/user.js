@@ -33,7 +33,7 @@ const user = new mongoose.Schema({
     token: {
         type: String
     }
-});
+}, {minimize: false});
 
 //saving user data
 user.pre('save', function(next) {

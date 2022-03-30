@@ -51,6 +51,38 @@ app.get('/api/users/data', auth, async(req, res) => {
     }
 });
 
+app.post('/api/folders/new', auth, async(req, res) => {
+    if (!req.isAuth) {
+        res.redirect('/login');
+        return;
+    }
+    console.log(req.body);
+    const folder_address = req.body.folder_address;
+    const owner = req.body.owner;
+    const folder_name = req.body.folder_name;
+    const f = {
+        folder_address: folder_address,
+        owner: owner,
+        folder_name: folder_name
+    }
+    try {
+        let setFolder = {};
+        let folder_addr = 'structure.' + req.user.username + '.' + folder_address + '.' + folder_name;
+        let folder_path = folder_addr.replace(/\//g, '.'); // structure.roton91.images.cid
+        setFolder[folder_path] = {__type__: 'folder'};
+        console.log(setFolder);
+        console.log(`folder_path: ${folder_path}`);
+        // let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $push: { structure: setFile } });
+        let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $set: setFolder });
+        // console.log(userModel);
+        console.log(`folder_path: ${folder_path}`);
+        return 'true';
+    } catch (error) {
+        console.log('Folder creation failed');
+        return 'false';
+    }
+});
+
 app.post('/api/files/new', auth, async(req, res) => {
     if (!req.isAuth) {
         res.redirect('/login');
@@ -77,8 +109,9 @@ app.post('/api/files/new', auth, async(req, res) => {
         console.log('Model saved: ' + model);
         let setFile = {};
         // let new_file_name = file_name.replace('.', '_dot_');
-        let file_addr = 'structure.' + file_address + '/'+ file_type + '.' + file_cid;
-        let file_path = file_addr.replace('/', '.'); // structure.roton91.images.cid
+        // let file_addr = 'structure.' + file_address + '/'+ file_type + '.' + file_cid;
+        let file_addr = 'structure.' + file_address + '.' + file_cid;
+        let file_path = file_addr.replace(/\//g, '.'); // structure.roton91.images.cid
         setFile[file_path] = { name: file_name, '__type__': file_type, cid: file_cid };
         console.log(`file_path: ${file_path}`);
         // let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $push: { structure: setFile } });
