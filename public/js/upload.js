@@ -56,20 +56,20 @@ function ekUpload() {
                     url: "http://" + location.host + "/api/files/new",
                     data: formData
                 }).then((res) => {
-                    console.log('Upload api called: '+res);
+                    console.log('Upload api called: ' + res);
                 })
             });
         }
     }
 
     $(document).on('click', '[id="new-folder-trigger"]', function() {
-        var fold_name = 'new-folder';
-        let rel_path = $('.show-up[data-file-icon]').attr('data-path');
-        console.log(rel_path +'/'+ fold_name);
-        createFolder(rel_path, fold_name).then((data)=>{
-            if(data) {
+        var fold_name = window.prompt("Folder Name");
+        let rel_path = $('.show-up[data-file-icon]').attr('data-path') ? '/' + $('.show-up[data-file-icon]').attr('data-path') : '';
+        console.log(rel_path + '/' + fold_name);
+        createFolder(rel_path, fold_name).then((data) => {
+            if (data) {
                 $('.no-item-inside-folder.active-folder-wrapper').empty().removeClass('no-item-inside-folder').addClass('active-folder-wrapper');
-                $('.active-folder-wrapper').append('<li data-file-icon="folder" data-new="new" data-cloud="load"><b>'+ fold_name +'</b></li>');
+                $('.active-folder-wrapper').append('<li data-file-icon="folder" data-new="new" data-cloud="load"><b>' + fold_name + '</b></li>');
                 filesAndFolderIcons('newData');
                 allStructure();
                 createFileAndFolderDataBase();
@@ -80,14 +80,14 @@ function ekUpload() {
     });
 
     async function createFolder(folderPath, folderName) {
-        let formData = { 'folder_address': folderPath, 'owner': username, 'folder_name': folderName }
-        console.log('createFolder called'+ formData);
+        let formData = { 'folder_address': folderPath + '/' + folderName, 'owner': username }
+        console.log('createFolder called' + formData);
         axios({
             method: 'post',
             url: "http://" + location.host + "/api/folders/new",
             data: formData
         }).then((res) => {
-            console.log('folder created: '+res);
+            console.log('folder created: ' + res);
         })
         return true;
     }
@@ -102,16 +102,16 @@ function ekUpload() {
     function getFileType(file) {
         // var extension = (/[.]/.exec(file.name)) ? /[^.]+$/.exec(file.name) : undefined;
         var isImage = (/\.(?=gif|jpg|png|jpeg)/gi).test(file.name);
-        if(isImage)
+        if (isImage)
             return 'images';
         var isText = (/\.(?=txt)/gi).test(file.name);
-        if(isText)
+        if (isText)
             return 'texts';
         var isCode = (/\.(?=py|html|css|js|c|cpp|php)/gi).test(file.name);
-        if(isCode)
+        if (isCode)
             return 'codes';
         var isDoc = (/\.(?=pdf|doc|docx)/gi).test(file.name);
-        if(isDoc)
+        if (isDoc)
             return 'documents';
         // var isOther = !(isImage | isText | isDoc);
         return 'others';
@@ -129,12 +129,12 @@ function ekUpload() {
         var imageName = file.name;
         // var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
         // if (isGood) {
-            // document.getElementById('start').classList.add("hidden");
-            // document.getElementById('response').classList.remove("hidden");
-            // document.getElementById('notimage').classList.add("hidden");
-            // Thumbnail Preview
-            // document.getElementById('file-image').classList.remove("hidden");
-            // document.getElementById('file-image').src = URL.createObjectURL(file);
+        // document.getElementById('start').classList.add("hidden");
+        // document.getElementById('response').classList.remove("hidden");
+        // document.getElementById('notimage').classList.add("hidden");
+        // Thumbnail Preview
+        // document.getElementById('file-image').classList.remove("hidden");
+        // document.getElementById('file-image').src = URL.createObjectURL(file);
         // } else {
         //     document.getElementById('file-image').classList.add("hidden");
         //     document.getElementById('notimage').classList.remove("hidden");
