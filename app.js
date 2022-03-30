@@ -77,8 +77,9 @@ app.post('/api/files/new', auth, async(req, res) => {
         console.log('Model saved: ' + model);
         let setFile = {};
         // let new_file_name = file_name.replace('.', '_dot_');
-        let file_addr = 'structure.' + file_address + '/'+ file_type + '.' + file_cid;
-        let file_path = file_addr.replace('/', '.'); // structure.roton91.images.cid
+        // let file_addr = 'structure.' + file_address + '/'+ file_type + '.' + file_cid;
+        let file_addr = 'structure.' + file_address + '.' + file_cid;
+        let file_path = file_addr.replace(/\//g, '.'); // structure.roton91.images.cid
         setFile[file_path] = { name: file_name, '__type__': file_type, cid: file_cid };
         console.log(`file_path: ${file_path}`);
         // let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $push: { structure: setFile } });

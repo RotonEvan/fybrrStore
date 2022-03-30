@@ -47,8 +47,10 @@ function ekUpload() {
                 // pBar.value = 100;
                 let cid = data.cid.string;
                 let fname = data.path;
+                let childAdd = $('.show-up[data-file-icon]').attr('data-path');
+                let faddress = username + '/' + childAdd;
                 serverConn.send(JSON.stringify({ context: 'PIN', id: _id, cid: cid }));
-                let formData = { 'file_address': username, 'file_cid': cid, 'owner': username, 'file_name': fname, 'file_type': ftype }
+                let formData = { 'file_address': faddress, 'file_cid': cid, 'owner': username, 'file_name': fname, 'file_type': ftype }
                 axios({
                     method: 'post',
                     url: "http://" + location.host + "/api/files/new",
