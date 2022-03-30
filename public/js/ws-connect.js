@@ -41,6 +41,8 @@ document.addEventListener('DOMContentLoaded', async() => {
                             child.appendChild(boldname);
                             child.dataset.fileId = key;
                             child.dataset.fileIcon = structure[username][key].__type__;
+                            child.dataset.openFile = "preview";
+
                         } else {
                             // folder
                             child = parseFolder(structure[username][key], key);
@@ -95,6 +97,7 @@ function parseFolder(folder, foldername) {
             child.appendChild(boldname);
             child.dataset.fileId = key;
             child.dataset.fileIcon = folder[key].__type__;
+            child.dataset.openFile = "preview";
         } else {
             // folder
             child = parseFolder(folder[key], key);
