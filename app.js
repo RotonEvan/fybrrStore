@@ -59,17 +59,15 @@ app.post('/api/folders/new', auth, async(req, res) => {
     console.log(req.body);
     const folder_address = req.body.folder_address;
     const owner = req.body.owner;
-    const folder_name = req.body.folder_name;
     const f = {
         folder_address: folder_address,
-        owner: owner,
-        folder_name: folder_name
+        owner: owner
     }
     try {
         let setFolder = {};
-        let folder_addr = 'structure.' + req.user.username + '.' + folder_address + '.' + folder_name;
+        let folder_addr = 'structure.' + req.user.username + folder_address;
         let folder_path = folder_addr.replace(/\//g, '.'); // structure.roton91.images.cid
-        setFolder[folder_path] = {__type__: 'folder'};
+        setFolder[folder_path] = {};
         console.log(setFolder);
         console.log(`folder_path: ${folder_path}`);
         // let userModel = await User.findOneAndUpdate({ username: req.user.username }, { $push: { structure: setFile } });
