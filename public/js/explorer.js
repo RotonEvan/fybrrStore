@@ -1,4 +1,3 @@
-
 function filesAndFolderIcons(newData) {
     function letGoSmallA(a) {
         var getType = $(a).attr('data-file-icon');
@@ -85,6 +84,20 @@ function deleteData() {
     } else {
         return false;
     }
+}
+
+function shareData(shareClass) {
+    console.log($(shareClass).closest('li')[0].dataset.fileId);
+    let f_id = $(shareClass).closest('li')[0].dataset.fileId;
+    let share_id = prompt("Share with: ");
+    let formData = { 'file_id': f_id, 'owner': username, 'share': share_id };
+    axios({
+        method: 'post',
+        url: "http://" + location.host + "/api/share",
+        data: formData
+    }).then((res) => {
+        console.log('Shared Link: ' + res);
+    })
 }
 
 function renameData(renameClass) {
@@ -235,7 +248,7 @@ function initUI() {
         var leftPos = e.pageX;
         $('.append-option-box').remove();
         $(this).addClass('context-visible').addClass('select');
-        $(this).append('<div class="append-option-box" style="top:' + topPos + 'px;left:' + leftPos + 'px;"><div class="inner-contenxt-box"><div data-open="data-move">Open</div><div data-function="data-copy">Copy</div> <div data-function="data-move">Move</div> <div data-function="data-rename">Rename</div> <div data-function="data-delete">Delete</div> <div class="">Share</div> <div data-function="data-properties">Properties</div></div></div>');
+        $(this).append('<div class="append-option-box" style="top:' + topPos + 'px;left:' + leftPos + 'px;"><div class="inner-contenxt-box"><div data-open="data-move">Open</div><div data-function="data-copy">Copy</div> <div data-function="data-move">Move</div> <div data-function="data-rename">Rename</div> <div data-function="data-delete">Delete</div> <div data-function="data-share">Share</div> <div data-function="data-properties">Properties</div></div></div>');
         $('.append-option-box>div>div:has(div)').addClass('has-sub-context');
         if ($(this).attr('data-file-icon') != "folder") {
             $('.append-option-box .inner-contenxt-box').append('<div data-function="data-copy-path">Copy Path</div>');
@@ -351,6 +364,10 @@ function initUI() {
     $(document).on('click', '[data-function="data-delete"]', function() {
         deleteData();
         createFileAndFolderDataBase();
+    });
+    $(document).on('click', '[data-function="data-share"]', function() {
+        shareData(this);
+        // createFileAndFolderDataBase();
     });
 
     $(document).on('click', '[data-function="data-copy-secure-path"]', function() {

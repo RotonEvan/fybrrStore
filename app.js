@@ -135,6 +135,14 @@ app.get('/api/files/all', auth, async(req, res) => {
 
 });
 
+app.post('/api/share', auth, (req, res) => {
+    if (!req.isAuth) {
+        res.redirect('/login');
+        return;
+    }
+    console.log(req.body);
+})
+
 
 
 app.get('/login', (req, res) => {
@@ -158,12 +166,14 @@ app.get('/', auth, (req, res) => {
         res.redirect('/login');
         return;
     } else {
-        res.redirect('/home');
+        res.redirect('/' + req.user.username);
         return;
     }
 });
 
+
 app.get('/:username', auth, (req, res) => {
+    console.log(req.params.username);
     if (!req.isAuth) {
         res.redirect('/login');
         return;
@@ -172,6 +182,7 @@ app.get('/:username', auth, (req, res) => {
         res.redirect('/404');
         return;
     }
+    // console.log(req.params[0]);
     res.sendFile(__dirname + '/public/views/explorer.html');
 });
 

@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', async() => {
                     // let fldr = parseFolder(structure[username], username);
                     // ul.appendChild(fldr);
                     struct.appendChild(ul);
+                    console.log(location.href.substring((location.protocol + '//' + location.host + '/' + username + '/').length));
                     initUI();
                 }
             })
