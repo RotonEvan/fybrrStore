@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
                 console.log(response);
                 let token = readCookie('authToken');
                 if (token) {
-                    window.location.href = location.protocol + "//" + location.host + '/home';
+                    window.location.href = location.protocol + "//" + location.host + '/';
                 }
             })
             .catch(function(response) {
