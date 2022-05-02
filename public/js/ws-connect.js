@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async() => {
-    const serverConn = new WebSocket('ws://' + location.host);
+    const serverConn = new WebSocket('wss://' + location.host);
 
     window.serverConn = serverConn;
 
