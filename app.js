@@ -135,12 +135,16 @@ app.get('/api/files/all', auth, async(req, res) => {
 
 });
 
-app.post('/api/share', auth, (req, res) => {
+app.post('/api/share', auth, async(req, res) => {
     if (!req.isAuth) {
         res.redirect('/login');
         return;
     }
     console.log(req.body);
+    const file_id = req.body.file_id;
+    const owner = req.body.owner;
+    const shared_with = req.body.share;
+    let fileModel = await Files.findOneAndUpdate({ file_cid: file_id }, { $push: { shared: shared_with } });
 })
 
 
