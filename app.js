@@ -145,10 +145,10 @@ app.post('/api/share', auth, async(req, res) => {
     const owner = req.body.owner;
     const shared_with = req.body.share;
     let fileModel = await Files.findOneAndUpdate({ file_cid: file_cid }, { $push: { shared: shared_with } });
-    console.log(fileModel);
+    // console.log(fileModel);
     let setFile = {};
-    let file_addr = 'structure.'+ shared_with +'.shared-with-me.' + fileModel.file_cid;
-    console.log(file_addr);
+    let file_addr = 'structure.'+ shared_with +'.shared-with-me.' + owner + '.' + fileModel.file_cid;
+    // console.log(file_addr);
     // let file_path = file_addr.replace(/\//g, '.'); // structure.roton91.images.cid
     setFile[file_addr] = { name: fileModel.file_name, '__type__': fileModel.file_type, cid: file_cid };
     // console.log(`file_path: ${file_path}`);
