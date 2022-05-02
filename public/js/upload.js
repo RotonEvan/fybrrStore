@@ -53,7 +53,7 @@ function ekUpload() {
                 let formData = { 'file_address': faddress, 'file_cid': cid, 'owner': username, 'file_name': fname, 'file_type': ftype }
                 axios({
                     method: 'post',
-                    url: "http://" + location.host + "/api/files/new",
+                    url: location.protocol + "//" + location.host + "/api/files/new",
                     data: formData
                 }).then((res) => {
                     console.log('Upload api called: ' + res);
@@ -84,7 +84,7 @@ function ekUpload() {
         console.log('createFolder called' + formData);
         axios({
             method: 'post',
-            url: "http://" + location.host + "/api/folders/new",
+            url: location.protocol + "//" + location.host + "/api/folders/new",
             data: formData
         }).then((res) => {
             console.log('folder created: ' + res);

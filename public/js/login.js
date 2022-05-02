@@ -10,7 +10,7 @@
 //       console.log('hello');
 //       axios({
 //           method: "post",
-//           url: 'http://' + location.host + "/api/login",
+//           url: location.protocol + "//" + location.host + "/api/login",
 //           data: data,
 //           // headers: { "Content-Type": "application/json" }
 //       })
@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
         console.log('hello');
         axios({
                 method: "post",
-                url: 'http://' + location.host + "/api/users/login",
+                url: location.protocol + "//" + location.host + "/api/users/login",
                 data: data,
                 // headers: { "Content-Type": "application/json" }
             })
@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
                 console.log(response);
                 let token = readCookie('authToken');
                 if (token) {
-                    window.location.href = 'http://' + location.host + '/home';
+                    window.location.href = location.protocol + "//" + location.host + '/home';
                 }
             })
             .catch(function(response) {
@@ -90,14 +90,14 @@ window.addEventListener('load', () => {
         console.log('hello');
         axios({
                 method: "post",
-                url: 'http://' + location.host + "/api/users/register",
+                url: location.protocol + "//" + location.host + "/api/users/register",
                 data: data,
                 // headers: { "Content-Type": "application/json" }
             })
             .then(function(response) {
                 //handle success
                 console.log(response);
-                window.location.href = 'http://' + location.host + '/';
+                window.location.href = location.protocol + "//" + location.host + '/';
             })
             .catch(function(response) {
                 //handle error

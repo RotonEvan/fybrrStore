@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async() => {
 
         axios({
                 method: 'get',
-                url: "http://" + location.host + "/" + "api/users/data",
+                url: location.protocol + "//" + location.host + "/" + "api/users/data",
             }).then(async(res) => {
                 console.log(res);
                 window._id = res.data._id;

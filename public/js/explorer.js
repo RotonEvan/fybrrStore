@@ -93,7 +93,7 @@ function shareData(shareClass) {
     let formData = { 'file_id': f_id, 'owner': username, 'share': share_id };
     axios({
         method: 'post',
-        url: "http://" + location.host + "/api/share",
+        url: location.protocol + "//" + location.host + "/api/share",
         data: formData
     }).then((res) => {
         console.log('Shared Link: ' + res);
